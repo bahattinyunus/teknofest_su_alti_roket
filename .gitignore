@@ -1,0 +1,38 @@
+# ROS 2 & Embedded Development GitIgnore
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Build and Install
+build/
+install/
+log/
+.catkin_tools/
+.colcon/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# C++
+*.o
+*.obj
+*.exe
+*.so
+*.a
+*.lib
+*.dll
+
+# Documentation
+docs/_build/
+
+# Hardware / CAD
+*.bak
+*.tmp
