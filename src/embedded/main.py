@@ -72,22 +72,51 @@ class MissionFSM:
             self.state = new_state
 
 def main():
-    fsm = RocketFSM()
-    print("Rocket Flight Software Initialized.")
+    fsm = MissionFSM()
+    print("--- TEKNOFEST 2026 SARA Mission Software ---")
     
-    # Mock loop
+    # Simulation variables
+    dt = 0.1 # 100ms
+    dist_x = 0
+    velocity_x = 0
+    pitch = 0
+    is_armed = True
+    
+    # Set Mission Mode (1: Stage-1, 2: Stage-2)
+    fsm.mission_mode = 2 
+    print(f"Active Mission: STAGE_{fsm.mission_mode}")
+
     try:
-        while True:
-            # Placeholder for sensor reading logic
+        while fsm.state != "RECOVERY":
+            # Simple Physics Simulation
+            # Always progress forward if not in RECOVERY or EMERGENCY_STOP
+            if "STAGE" in fsm.state:
+                velocity_x = 1.5 # m/s (Constant forward thrust)
+                dist_x += velocity_x * dt
+            
+            # Mission specific logic
+            if "STAGE_2_30M" in fsm.state:
+                pitch += 10 # Rapid pitch up for surfacing
+            
             sensor_data = {
                 'accel_z': 0,
                 'velocity_z': 0,
-                'altitude': 100
+                'dist_x': dist_x,
+                'pitch': pitch,
+                'is_armed': is_armed
             }
+            
             fsm.update(sensor_data)
-            time.sleep(0.1)
+            
+            if fsm.state != "RECOVERY":
+                print(f"[SIM] Dist: {dist_x:.1f}m | Pitch: {pitch:.1f}° | State: {fsm.state}")
+            
+            time.sleep(dt)
+            
+        print("[MISSION] SUCCESS: Recovery state reached.")
+        
     except KeyboardInterrupt:
-        print("Software Terminated.")
+        print("\n[MISSION] ABORTED by user.")
 
 if __name__ == "__main__":
     main()
