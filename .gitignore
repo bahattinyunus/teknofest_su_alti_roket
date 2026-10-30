@@ -15,6 +15,7 @@ log/
 
 # VS Code
 .vscode/
+!firmware/.vscode/
 *.code-workspace
 
 # OS generated

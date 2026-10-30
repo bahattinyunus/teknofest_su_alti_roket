@@ -1,0 +1,10 @@
+{
+  "cmake.configureSettings": {
+    "CMAKE_C_COMPILER": "arm-none-eabi-gcc",
+    "CMAKE_CXX_COMPILER": "arm-none-eabi-g++",
+    "TARGET_HARDWARE": "PCB"
+  },
+  "cmake.generator": "Ninja",
+  "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+  "C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json"
+}

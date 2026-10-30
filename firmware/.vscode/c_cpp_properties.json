@@ -1,0 +1,24 @@
+{
+  "configurations": [
+    {
+      "name": "STM32F407",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "${workspaceFolder}/include/**"
+      ],
+      "defines": [
+        "STM32F407xx",
+        "USE_HAL_DRIVER",
+        "HV_PCB",
+        "ARM_MATH_CM4",
+        "__FPU_PRESENT=1"
+      ],
+      "compilerPath": "arm-none-eabi-gcc",
+      "cStandard": "c11",
+      "cppStandard": "c++17",
+      "intelliSenseMode": "gcc-arm",
+      "compileCommands": "${workspaceFolder}/build/compile_commands.json"
+    }
+  ],
+  "version": 4
+}
