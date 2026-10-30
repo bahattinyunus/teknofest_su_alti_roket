@@ -1,5 +1,5 @@
 """
-Blackbox Log Parser for ITU Sungur Autonomous Underwater Rocket
+Blackbox Log Parser for TEKNOFEST Autonomous Underwater Rocket
 Parses telemetry records logged by the ESP32-S3 into 8MB PSRAM during autonomous missions.
 """
 

@@ -1,7 +1,7 @@
 /**
  * @file main.c
  * @brief ESP32-S3 FOTA Server and 8MB PSRAM Blackbox Logger
- * ITU Sungur Team - Autonomous Underwater Rocket Project
+ * Open Reference Architecture for TEKNOFEST Autonomous Underwater Rocket Teams
  */
 
 #include <stdio.h>
@@ -83,8 +83,8 @@ bool FOTA_TriggerSTM32Update(const uint8_t *binaryData, size_t binarySize) {
 }
 
 void app_main(void) {
-    printf("=== ITU SUNGUR ESP32-S3 FOTA & BLACKBOX BRIDGE ===\n");
+    printf("=== TEKNOFEST UNDERWATER ROCKET ESP32-S3 FOTA & BLACKBOX BRIDGE ===\n");
     Blackbox_Init();
-    /* Wi-Fi SoftAP initialization: SSID="SUNGUR_FOTA_ACCESS_POINT" */
+    /* Wi-Fi SoftAP initialization: SSID="ROCKET_FOTA_ACCESS_POINT" */
     /* Start Web Server with /update and /blackbox endpoints */
 }

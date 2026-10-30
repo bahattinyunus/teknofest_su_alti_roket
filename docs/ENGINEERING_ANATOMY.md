@@ -1,7 +1,7 @@
 # Şampiyon Roketin Mühendislik Anatomisi: STM32, FreeRTOS ve FOTA ile Su Altı Otonomisi
 
-> **İTÜ Sungur Takımı** — Roketsan Su Altı Roketi Yarışması Türkiye Birincisi (Şampiyon)  
-> *Aviyonik, Mekanik ve Gömülü Sistemler Kapsamlı Mühendislik Raporu ve Mimari Dokümantasyonu*
+> 📘 **Açık Kaynak Mühendislik Rehberi & Vaka Analizi:**  
+> Bu doküman; Roketsan Su Altı Roketi Yarışması'nda Türkiye Birinciliği (Şampiyonluk) elde eden İTÜ Sungur Takımı'nın aviyonik, gömülü yazılım ve mekanik mimarisini, yarışmaya katılan **tüm takımlara rehberlik etmek ve açık kaynak bir referans oluşturmak** amacıyla sunmaktadır.
 
 ---
 

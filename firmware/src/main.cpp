@@ -1,8 +1,8 @@
 /**
  * @file main.cpp
- * @brief ITU Sungur Autonomous Underwater Rocket - Flight Controller Main Entry
+ * @brief Open-Source Autonomous Underwater Rocket - Reference Flight Controller Main Entry
  * Architecture: STM32F407VG + FreeRTOS + CMSIS-DSP + Zero-Allocation ESKF
- * Competition: Roketsan Su Alti Roketi Yarismasi (Mavi Vatan Tersaneleri)
+ * Purpose: Open reference architecture for TEKNOFEST & Roketsan underwater rocket teams
  */
 
 #include "gatekeeper_task.h"

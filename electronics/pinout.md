@@ -1,6 +1,6 @@
-# Uçuş Kontrol Kartı Pin ve Donanım Mimarisi (Flight Controller Pinout)
+# Su Altı Roketi Referans Uçuş Kontrol Kartı (FC) Pin ve Donanım Mimarisi
 
-Bu doküman, İTÜ Sungur Takımı tarafından Roketsan Su Altı Roketi Yarışması için özel olarak geliştirilen tek parça Uçuş Kontrol Kartı (Designed by Cemalettin & Gökhan) pin konfigürasyonunu ve haberleşme topolojisini tanımlar.
+Bu doküman, TEKNOFEST ve Roketsan Su Altı Roketi yarışmalarına hazırlanan tüm takımlara rehberlik etmesi amacıyla, sahada doğrulanmış tek parça Uçuş Kontrol Kartı (STM32F407VG + ESP32-S3) pin konfigürasyonunu ve haberleşme topolojisini tanımlar.
 
 ---
 

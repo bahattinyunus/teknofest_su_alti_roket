@@ -1,5 +1,5 @@
 """
-Mission Simulator for TEKNOFEST Su Alti Roketi (ITU Sungur)
+Mission Simulator for TEKNOFEST Autonomous Underwater Rocket Teams
 Simulates torpedic hydrodynamics, fin control surface response, and mission state sequencing.
 """
 
