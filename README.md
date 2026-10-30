@@ -4,7 +4,7 @@
   <img src="media/brand/logo.png" alt="Logo" width="120">
   
   # 🌊 TEKNOFEST SU ALTI ROKETİ
-  ### *Açık Kaynak Geliştirici Rehberi ve Referans Aviyonik Mimarisi*
+  ### *Açık Kaynak Geliştirici Rehberi, Rakip Analizi ve Referans Aviyonik Mimarisi*
   ### *Advanced Autonomous Underwater Rocket Framework for All Teams*
   
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -21,12 +21,32 @@
 
 ---
 
+## 📌 İçindekiler
+1. [Bu Deponun Amacı ve Açık Kaynak Vizyonu](#-bu-deponun-amacı-ve-açık-kaynak-vizyonu)
+2. [Kapsamlı Mühendislik Rehberi ve Vaka Analizi](#-kapsamlı-mühendislik-rehberi-ve-vaka-analizi)
+3. [Öne Çıkan Referans Mimari Özellikleri](#-öne-çıkan-referans-mimari-özellikleri)
+4. [Yarışma Konsepti ve Görev Profilleri (Roketsan Şartnamesi)](#-yarışma-konsepti-ve-görev-profilleri-roketsan-şartnamesi)
+5. [🌍 Küresel Yarışmalar ve Karşılaştırmalı Ekosistem Analizi](#-küresel-yarışmalar-ve-karşılaştırmalı-ekosistem-analizi)
+6. [🔍 Karşılaştırmalı Rakip ve Sistem Mimarisi Matrisi](#-karşılaştırmalı-rakip-ve-sistem-mimarisi-matrisi)
+7. [💻 Açık Kaynak Global Referans Projeler ve Kod Depoları](#-açık-kaynak-global-referans-projeler-ve-kod-depoları)
+8. [📐 Torpido Hidrodinamiği ve Kontrol Kanatçığı Analizi: Haç (+) vs X-Rudder (X)](#-torpido-hidrodinamiği-ve-kontrol-kanatçığı-analizi-haç--vs-x-rudder-x)
+9. [🚀 Su-Hava Faz Geçişi ve Balistik Roket Ateşleme Fiziği](#-su-hava-faz-geçişi-ve-balistik-roket-ateşleme-fiziği)
+10. [🔌 Referans Donanım ve Aviyonik Topolojisi](#-referans-donanım-ve-aviyonik-topolojisi)
+11. [📡 FOTA (Firmware Over-The-Air) & Kara Kutu Akışı](#-fota-firmware-over-the-air--kara-kutu-akışı)
+12. [⚙️ Modern Geliştirme Ortamı (VS Code + CMake + Ninja)](#️-modern-geliştirme-ortamı-vs-code--cmake--ninja)
+13. [📂 Proje Dizin Yapısı](#-proje-dizin-yapısı)
+14. [🏆 Mühendislik Karnesi (Tüm Takımlar İçin Do's & Don'ts)](#-mühendislik-karnesi-tüm-takımlar-için-dos--donts)
+15. [💻 Simülasyon ve Testleri Çalıştırma](#-simülasyon-ve-testleri-çalıştırma)
+16. [🤝 Katkıda Bulunma ve Lisans](#-katkıda-bulunma-ve-lisans)
+
+---
+
 ## 💡 Bu Deponun Amacı ve Açık Kaynak Vizyonu
 
-Su altı roketi konsepti, geleneksel ROV sistemlerinden ve hava roketlerinden köklü biçimde ayrılan, hidrodinamik kısıtları son derece yüksek bir mühendislik alanıdır. Dünyada ve ülkemizde bu özel konsepte yönelik açık kaynaklı mimari, referans gömülü kod ve saha tecrübesi eksikliğini gidermek amacıyla bu depo oluşturulmuştur.
+Su altı roketi konsepti; geleneksel ROV (Remotely Operated Vehicle) sistemlerinden, havuz tabanlı AUV'lerden ve klasik atmosferik model roketlerden köklü biçimde ayrılan, çok disiplinli ve hidrodinamik kısıtları son derece sert bir mühendislik sahasıdır. Dünyada ve Türkiye'de bu özgün konsepte yönelik açık kaynaklı mimari doküman, referans gömülü yazılım şablonu ve saha tecrübesi eksikliğini gidermek amacıyla bu bağımsız depo hayata geçirilmiştir.
 
-> 🏆 **Vaka Analizi & Referans Mimari:**  
-> Depo içeriğindeki donanım şemaları, FreeRTOS görev kurguları, FOTA kablosuz yükleme mekanizması ve seyrüsefer (ESKF) algoritmaları; Roketsan Su Altı Roketi Yarışması'nda **Türkiye Birinciliği (Şampiyonluk)** elde eden İTÜ Sungur Takımı'nın ve sahada başarı göstermiş ekiplerin kanıtlanmış mühendislik çözümleri referans alınarak genelleştirilmiş ve tüm takımların istifadesine sunulmuştur.
+> 🏆 **Vaka Analizi & Doğrulanmış Mimari:**  
+> Depo içeriğindeki donanım topolojileri, FreeRTOS görev kurguları, FOTA kablosuz güncelleme protokolü ve C++ Template ESKF seyrüsefer algoritmaları; Roketsan Su Altı Roketi Yarışması'nda **Türkiye Birinciliği (Şampiyonluk)** elde eden İTÜ Sungur Takımı'nın ve sahada başarı gösteren diğer öncü ekiplerin gerçek saha tecrübeleri baz alınarak genelleştirilmiş ve tüm yarışmacı takımların kullanımına sunulmuştur.
 
 ---
 
@@ -71,16 +91,164 @@ flowchart TD
 
 ---
 
+## 🌍 Küresel Yarışmalar ve Karşılaştırmalı Ekosistem Analizi
+
+Su altı otonomisi alanında dünya genelinde düzenlenen önde gelen yarışmalar ile TEKNOFEST / Roketsan Su Altı Roketi Yarışması arasındaki temel konsept, dinamik ve mühendislik farkları aşağıda özetlenmiştir:
+
+### 1. TEKNOFEST & Roketsan Su Altı Roketi (Türkiye)
+- **Tasarım Felsefesi:** Torpido formu zorunluluğu, tek eksenli BLDC ana itki motoru ve 4 adet aerodinamik kontrol yüzeyi (kanatçık).
+- **Benzersiz Zorluk:** Yan itici kullanımı ve suda asılı kalma (*hovering*) kesinlikle yasaktır. Araç, uçak aerodinamiğine benzer şekilde yalnızca ileri hız ($v_x > 0$) varken kontrol momenti üretebilir.
+- **Görev Özgünlüğü:** Su altından su sathına yüksek açıyla yunuslama (*pitch-up*), yüzey gerilimini yırtarak çıkış, mekanik kapak açma ve su üzerinde kuru model roketi otonom ateşleme. Bu konsept, savunma sanayisindeki **denizaltı kapsül fırlatma sistemlerini (SLCM / Kapsüllü Seyir Füzesi)** simüle eder.
+
+### 2. RoboSub (RoboNation / ONR — San Diego TRANSDEC, ABD)
+- **Tasarım Felsefesi:** Genellikle 6 ila 8 serbestlik dereceli, vektörel iticilere sahip açık çerçeveli (open-frame) kutu tipi AUV'ler.
+- **Görevler:** Akustik pinger takibi, kapılardan geçiş, görüntü işleme ile şamandıra tanıma, manipülatörle ağırlık bırakma ve basınçlı hava ile küçük torpido/marker atımı.
+- **Kıyaslama:** Düşük seyir hızı ($0.5 - 1.0\text{ m/s}$), yüksek manevra kabiliyeti (yerinde sıfır yarıçaplı dönebilme ve derinlikte sabit asılı kalabilme), yüksek sürtünme katsayısı ($C_d \approx 0.8 - 1.2$). Torpido hidrodinamiği aranmaz.
+
+### 3. SAUVC (Singapore AUV Challenge — Singapur / IEEE OES)
+- **Tasarım Felsefesi:** Havuz ortamı için optimize edilmiş, kompakt, 4-6 iticili otonom su altı robotları.
+- **Görevler:** Sarı kapıdan otonom geçiş, su altı akustik pinger lokasyonu, golf topunu hedef kovaya bırakma.
+- **Kıyaslama:** Görüntü işleme (OpenCV/YOLO) ve akustik seyrüsefer odaklıdır. Dinamik yüzey çıkışı ve roket ateşleme gibi balistik faz geçişleri bulunmaz.
+
+### 4. European Robotics League (ERL) Emergency / RAMI (La Spezia, İtalya — NATO CMRE)
+- **Tasarım Felsefesi:** Açık deniz ve liman altyapılarında arama-kurtarma ve endüstriyel denetim yürüten büyük ölçekli AUV ve hibrit ROV'lar.
+- **Görevler:** Boru hattı izleme, akustik haritalama, enkaz tespiti ve çoklu robot işbirliği.
+- **Kıyaslama:** Ağır sensör yükü (DVL, multibeam sonar, USBL). Hızlı manevra ve torpido kontrolünden ziyade uzun menzilli dayanıklılık ön plandadır.
+
+---
+
+## 🔍 Karşılaştırmalı Rakip ve Sistem Mimarisi Matrisi
+
+| Kriter | TEKNOFEST Su Altı Roketi | Klasik RoboSub AUV | SAUVC Robotları | Standart Endüstriyel ROV |
+| :--- | :--- | :--- | :--- | :--- |
+| **Gövde Formu** | **Torpido (Eksenel Simetrik)** | Açık İskelet (Kutu/Box-frame) | Kompakt Kutu / Katamaran | Ağır Çerçeve & Şamandıra Bloğu |
+| **İtki Sistemi** | **1x BLDC Motor (Tek Yön)** | 6 - 8x Fırçasız İtici (Vektörel) | 4 - 6x İtici | 4 - 8x Güçlü İtici (Kablolu) |
+| **Yönelim Kontrolü** | **4x Kanatçık (+ veya X Fin)** | İtici Diferansiyel Hızları | İtici Diferansiyel Hızları | İtici Diferansiyel Hızları |
+| **Sürtünme Katsayısı ($C_d$)** | **$0.15 - 0.22$ (Çok Düşük)** | $0.80 - 1.30$ (Çok Yüksek) | $0.60 - 0.90$ (Yüksek) | $1.00 - 1.50$ (Aşırı Yüksek) |
+| **Hovering (Askıda Kalma)** | **YASAK (Sıfır Hızda Kontrol Yok)** | Var (6-DoF Tam Kontrol) | Var (Derinlik Sabitleme) | Var (Kablolu Sürekli Güç) |
+| **Seyir Hızı** | **$2.0 - 3.5\text{ m/s}$ (Yüksek Hız)** | $0.5 - 1.2\text{ m/s}$ | $0.4 - 0.8\text{ m/s}$ | $0.5 - 1.5\text{ m/s}$ |
+| **Yunuslama (Pitching) Manevrası** | **Zorunlu ($30^\circ - 50^\circ$ Dinamik)** | Opsiyonel / Düz Eğim | Nadir | Yok (Daima Yatay) |
+| **Faz Geçişi (Su $\rightarrow$ Hava)** | **Var (Yüzey Gerilimi Yırtma)** | Yok | Yok | Yok |
+| **Faydalı Yük** | **Kuru Hazneli Model Roket** | Pnömatik Torpido / Marker | Plastik Top Bırakma | Hidrolik/Elektrik Manipülatör |
+| **Uçuş Kontrolcüsü (FC)** | **STM32F407 (Hard Real-Time RTOS)** | Jetson / NUC + Pixhawk/Teensy | Raspberry Pi + Arduino | Topside PC + PLC / STM32 |
+| **Zamanlama Determinizmi** | **Mikrosaniye Seviyesi (FreeRTOS)** | Milisaniye (ROS/ROS 2 Linux) | Milisaniye (ROS / Linux) | Milisaniye Seviyesi |
+| **Kablosuz Saha Bakımı** | **FOTA (Wi-Fi 128-byte chunk)** | Ethernet Kablosu / SSH | Wi-Fi / SSH | Fiber Optik / Bakır Tether |
+
+---
+
+## 💻 Açık Kaynak Global Referans Projeler ve Kod Depoları
+
+Dünya genelinde üniversite takımlarının ve araştırma enstitülerinin açık kaynak olarak yayımladığı, su altı otonomisi ve gömülü seyrüsefer için rehber niteliğindeki seçkin depolar:
+
+### 1. Gömülü Yazılım ve Donanım Katmanı
+* **[Stanford AUV — RoboSub Repository](https://github.com/Stanford-AUV/RoboSub):**  
+  Stanford Üniversitesi'nin ROS 2 tabanlı otonom yazılım kümesi. Teensy ve mikrodenetleyici tabanlı düşük seviyeli aktüatör PWM üretimi, IMU/DVL donanım soyutlama katmanı (`hardware`) ve görev planlayıcı modülleri içerir.
+* **[McGill Robotics — Douglas AUV (auv-embedded-2026)](https://github.com/mcgill-robotics/auv-embedded-2026):**  
+  McGill Üniversitesi'nin RoboSub yarışma aracı için sıfırdan geliştirdiği C/C++ gömülü yazılım mimarisi. Düşük seviyeli sensör filtreleme ve yarışma odaklı firmware yapısı için ideal bir referanstır.
+* **[Palouse RoboSub — Embedded Monorepo](https://github.com/palouse-robosub):**  
+  Özel PCB tasarımları, RP2350 ve ARM tabanlı güç kontrol kartları için C++ gömülü kütüphaneleri barındırır.
+* **[UF-MIL — SubjuGator / mil](https://github.com/uf-mil/mil):**  
+  Florida Üniversitesi'nin 20 yılı aşkın süredir geliştirdiği efsanevi AUV kod tabanı. Düşük seviye mikrodenetleyici kodlarından gelişmiş doğrusal olmayan kontrol algoritmalarına kadar devasa bir kütüphanedir.
+* **[OSU-UWRT — Riptide Setup](https://github.com/osu-uwrt/riptide_setup):**  
+  Ohio State Üniversitesi su altı robotik takımının donanım arayüzleri, EKF sensör füzyonu ve motor tahsis katmanlarını barındıran mimarisi.
+
+### 2. Rehberlik, Seyrüsefer ve Kontrol (GNC) Kütüphaneleri
+* **[Vortex NTNU — AUV GNC Repository](https://github.com/vortexntnu/vortex-auv):**  
+  Norveç Bilim ve Teknoloji Üniversitesi (NTNU) tarafından sürdürülen, otonom deniz araçları için rehberlik, seyrüsefer ve kontrol (GNC), durum kestirimi ve dinamik konumlandırma kütüphanesi.
+* **[auvsociety/sauvc-simulations](https://github.com/auvsociety/sauvc-simulations):**  
+  Singapur SAUVC yarışma havuzu ve araç kinematiği için geliştirilmiş 6-DoF simülasyon ortamı.
+* **[ArduSub / Blue Robotics](https://github.com/ArduPilot/ardupilot/tree/master/ArduSub):**  
+  Dünyanın en yaygın açık kaynak su altı otopilotu. (Not: ArduSub çoklu iticili kutu tipi araçlar için tasarlanmıştır; torpido tipi kanatçık mikserleri için modifiye edilmesi gerekir).
+
+---
+
+## 📐 Torpido Hidrodinamiği ve Kontrol Kanatçığı Analizi: Haç (+) vs X-Rudder (X)
+
+Torpido gövdeli araçlarda kontrol momentleri, kanatçıklar üzerinden geçen akışkan hızının ürettiği kaldırma kuvveti ($L$) ile oluşturulur:
+
+$$L = \frac{1}{2} \rho v_x^2 A_{fin} C_L(\alpha)$$
+
+Burada $v_x$ aracın ileri hızı, $A_{fin}$ kanatçık ıslak alanı, $\alpha$ ise hücum açısıdır. Araç dururken ($v_x = 0$) kaldırma kuvveti sıfırdır; bu nedenle torpido formunda yönelim ancak araç hareket halindeyken mümkündür.
+
+```text
+       HAÇ (+) KONFİGÜRASYONU                 X-RUDDER (X) KONFİGÜRASYONU
+       
+               [Fin 1] (Üst Dümen)               \ (Fin 1)     / (Fin 2)
+                 |                                \           /
+    [Fin 3] ---- + ---- [Fin 4]                     \       /
+    (Yatay)      |      (Yatay)                       \   /
+               [Fin 2] (Alt Dümen)                      X
+                                                      /   \
+                                                    /       \
+                                                  /           \
+                                                / (Fin 3)     \ (Fin 4)
+```
+
+### Derinlemesine Karşılaştırma:
+
+| Özellik | Haç (+) Konfigürasyonu | X-Rudder (X) Konfigürasyonu |
+| :--- | :--- | :--- |
+| **Eksen Bağımsızlığı** | Tamamen Bağımsız (Yatay finler $\rightarrow$ Pitch, Dikey finler $\rightarrow$ Yaw). | Kuple (Her fin aynı anda hem Pitch hem Yaw momenti üretir). |
+| **Kontrol Algoritması** | Doğrudan PID (Basit ve Ayrık). | Kontrol Dağıtım Matrisi (Control Allocation Matrix) gerektirir. |
+| **Maksimum Dönüş Otoritesi** | Yalnızca 2 fin ilgili eksende tork üretir. | **4 finin tamamı** aynı anda tek eksende tork üretebilir (%40 daha yüksek tork). |
+| **Kanat Alanı Tasarrufu** | Daha büyük fin alanı gerektirir ($C_d$ sürtünmesi artar). | Yaklaşık %10-15 daha küçük finlerle aynı manevra kabiliyeti. |
+| **Arıza Toleransı (FDI)** | Bir dikey fin sıkışırsa dümen hakimiyeti neredeyse biter. | **Bir fin bozulsa dahi**, kalan 3 fin matematiksel olarak aracı güvenle yönetir. |
+| **Havuz Tabanı Çarpma Riski** | Yüksek (Alt dikey fin sığ suda tabana çarpabilir). | **Düşük** (Diyagonal yerleşim sayesinde alt merkez boştur). |
+| **İstenmeyen Roll Kuplajı** | Yok denecek kadar azdır. | Manevra anında gövdede istenmeyen dönme (roll) momenti oluşabilir. |
+
+### X-Rudder Kontrol Dağıtım Matrisi (Control Allocation)
+
+X konfigürasyonunda kontrolcünün ürettiği sanal momentler ($\tau_{pitch}, \tau_{yaw}, \tau_{roll}$), her bir kanatçığın sapma açısına ($\delta_1, \delta_2, \delta_3, \delta_4$) şu dönüşüm matrisi ile aktarılır:
+
+$$\begin{bmatrix} \delta_1 \\ \delta_2 \\ \delta_3 \\ \delta_4 \end{bmatrix} = \frac{1}{\sqrt{2}} \begin{bmatrix} 1 & -1 & 1 \\ 1 & 1 & -1 \\ -1 & -1 & -1 \\ -1 & 1 & 1 \end{bmatrix} \begin{bmatrix} \tau_{pitch} \\ \tau_{yaw} \\ \tau_{roll} \end{bmatrix}$$
+
+---
+
+## 🚀 Su-Hava Faz Geçişi ve Balistik Roket Ateşleme Fiziği
+
+Yarışmanın en kritik etabı olan **Görev 2 (Yunuslama ve Model Roket Ateşleme)**, akışkanlar mekaniği ile atmosferik balistik faz geçişinin kesiştiği alandır:
+
+```mermaid
+sequenceDiagram
+    participant SARA as Su Altı Roketi
+    participant KAPAK as Mekanik Kapak
+    participant ROKET as Model Roket Motoru
+    
+    Note over SARA: 30m Su Altı Seyri (1.5m Derinlik)
+    SARA->>SARA: Finler Pitch-Up Açısına Çekilir (+25°)
+    Note over SARA: Yunuslama Hareketi (Su Sathına Doğru Tırmanış)
+    SARA->>SARA: Yüzey Gerilimi Yırtılır & Burun Su Üstüne Çıkar
+    SARA->>SARA: Ana Motor Kapatılır (Trim Açısı: 35°-45°)
+    SARA->>KAPAK: Servo Tetiklenir (Sızdırmaz Kapak Açılır)
+    Note over SARA: Kuru Hazne Doğrulaması (Safe-to-Arm Interlock)
+    SARA->>ROKET: Elektronik Ateşleyiciye (E-Match) Akım Verilir
+    ROKET->>ROKET: Katı Yakıt Ateşlenir ve Roket Gökyüzüne Fırlar! 🚀
+```
+
+### Kritik Fiziksel Parametreler:
+1. **Ağırlık Merkezi (CG) ve Sephiye Merkezi (CB) Dengesi:**
+   Aracın su altındaki dikey stabilitesi hidrostatik düzeltme torkuna bağlıdır:
+   $$M_{restoring} = \rho_{su} \cdot V \cdot g \cdot \overline{BG} \cdot \sin(\theta)$$
+   Burada $\overline{BG}$, sephiye merkezi ($CB$) ile ağırlık merkezi ($CG$) arasındaki dikey mesafedir. Aracın alabora olmaması için $CB$'nin daima $CG$'nin üzerinde ($z_{CB} < z_{CG}$) olması şarttır.
+2. **Yüzey Gerilimi ve İlave Kütle (Added Mass) Ayrılması:**
+   Burun konisi su sathını terk ederken anlık hidrodinamik direnç değişimi yaşanır. Aracın geri te撃memesi için yunuslama manevrasına pozitif bir hız momentumuyla ($v_x \ge 1.8\text{ m/s}$) girilmelidir.
+3. **Safe-to-Arm Güvenlik Kilidi:**
+   Model roket motorunun su altındayken yanlışlıkla ateşlenmesini önlemek için uçuş yazılımında çift aşamalı yazılımsal güvenlik kilidi bulunur:
+   * Basınç sensöründen okunan derinlik değeri $< 0.05\text{ m}$ olmalıdır.
+   * IMU pitch yönelimi $30^\circ \le \theta \le 55^\circ$ aralığında kararlı kalmalıdır.
+
+---
+
 ## 🔌 Referans Donanım ve Aviyonik Topolojisi
 
-Tüm takımlar için önerilen tek parça veya modüler Uçuş Kontrol Kartı (FC) topolojisi; sahada karşılaşılabilecek tüm kriz senaryolarına karşı yedekli donanımsal hatlar ve izole güç katmanı ile kurgulanmalıdır.
+Tüm takımlar için önerilen Uçuş Kontrol Kartı (FC) topolojisi; sahada karşılaşılabilecek tüm kriz senaryolarına karşı yedekli donanımsal hatlar ve izole güç katmanı ile kurgulanmalıdır.
 
 ```mermaid
 graph TD
     subgraph "Güç Katmanı"
-        BATT[Li-Po Batarya] --> BMS[BMS & Koruma]
-        BMS --> REG_5V[5V İzole LDO / Regülatör]
-        BMS --> REG_PWR[ESC & Servo Güç Hattı]
+        BATT[Li-Po Batarya 4S] --> BMS[BMS & Akım Sensörü]
+        BMS --> REG_5V[5V İzole LDO / Buck]
+        BMS --> REG_PWR[ESC & Servo Güç Rayı]
     end
 
     subgraph "Aviyonik Kontrol Kartı (Referans Mimari)"
@@ -95,18 +263,20 @@ graph TD
     subgraph "Eyleyiciler (Actuators)"
         SERVOS[4x Kontrol Kanatçığı Servoları]
         BLDC[Ana Fırçasız Motor & ESC]
-        HATCH[Kapak Açma & Ateşleme Rölesi]
+        HATCH[Kapak Açma Servosu]
+        IGNITER[Roket Ateşleme Rölesi]
     end
 
     REG_5V --> STM32
     REG_5V --> ESP32
-    ESP32 <-->|UART & nRESET| STM32
+    ESP32 <-->|UART USART6 & nRESET| STM32
     STM32 <-->|I2C1 DMA + 9-Clock Recovery| IMU
     STM32 <-->|I2C1 DMA + 9-Clock Recovery| PRESS
     STM32 -->|UART1 DMA / Gatekeeper Queue| MAESTRO
     MAESTRO --> SERVOS
     MAESTRO --> BLDC
     STM32 --> HATCH
+    STM32 --> IGNITER
 ```
 
 Detaylı pin konfigürasyonu ve donanım hatları için [electronics/pinout.md](electronics/pinout.md) dosyasına göz atın.
@@ -125,13 +295,13 @@ sequenceDiagram
 
     PC->>ESP: Wi-Fi üzerinden .bin yükle
     ESP->>ESP: CRC32 Doğrulaması yap
-    ESP->>STM: nRESET pinini LOW'a çek (Reset)
-    STM->>STM: 0x08000000 Bootloader Başlat
-    ESP->>STM: 0x7F Senkronizasyon Baytı (UART)
+    ESP->>STM: nRESET pinini LOW'a çek (Donanımsal Reset)
+    STM->>STM: 0x08000000 Custom Bootloader Başlat
+    ESP->>STM: 0x7F Senkronizasyon Baytı (USART6)
     loop 128-Byte Parçalar (Chunks)
         ESP->>STM: 128 Byte Payload
-        STM->>STM: Flash Belleğe Yaz
-        STM-->>ESP: ACK Baytı
+        STM->>STM: Flash Belleğe Yaz (0x08010000+)
+        STM-->>ESP: ACK (0x06) Baytı
     end
     STM->>STM: VTOR Kaydır & 0x08010000 App Adresine Zıpla
 ```
@@ -164,7 +334,7 @@ ninja -C build
 ```text
 teknofest_su_alti_roket/
 ├── docs/
-│   ├── ENGINEERING_ANATOMY.md   # Şampiyon Roketin Mühendislik Anatomisi (Detaylı Rapor)
+│   ├── ENGINEERING_ANATOMY.md   # Şampiyon Roketin Mühendislik Anatomisi (Detaylı Vaka Raporu)
 │   ├── specs/                   # Yarışma şartnameleri (Roketsan V1.2)
 │   └── reports/                 # OTR, KTR ve Final tasarım rapor şablonları
 ├── firmware/                    # STM32F407VG + FreeRTOS + FOTA Üretim Kodları
@@ -202,23 +372,22 @@ teknofest_su_alti_roket/
 ## 💻 Simülasyon ve Testleri Çalıştırma
 
 ```bash
-# Birim testleri çalıştırma
+# Birim testleri koşturma (ESKF, FSM, Blackbox)
 python -m unittest discover tests
 
-# Hidrodinamik görev simülasyonunu koşturma
+# Hidrodinamik görev simülasyonunu çalıştırma
 python sim/mission_simulator.py
 ```
 
 ---
 
-## 🤝 Katkıda Bulunma
-Bu repo tüm TEKNOFEST ekiplerinin ortak faydalanması ve katkı sunması için kurulmuştur. Yeni sensör sürücüleri, simülasyon modelleri veya mimari iyileştirmeler için PR (Pull Request) gönderebilirsiniz.
+## 🤝 Katkıda Bulunma ve Lisans
+Bu açık kaynaklı repo, su altı otonomisi ve roket teknolojileri üzerine çalışan tüm araştırmacıların ve yarışmacı takımların ortak kullanımına ve gelişimine açıktır. Katkı sağlamak için lütfen bir Pull Request (PR) açın veya 이슈/Tartışma başlatın.
 
-## 📜 Lisans
-Bu proje **MIT Lisansı** altında lisanslanmıştır. Detaylar için [LICENSE](LICENSE) dosyasına göz atın.
+Bu proje **[MIT Lisansı](LICENSE)** altında lisanslanmıştır.
 
 ---
 <div align="center">
   <b>Designed for Reliability, Engineered for the Deep.</b><br>
-  Tüm <b>TEKNOFEST Su Altı Roketi</b> Takımlarına Başarılar Dileriz! 🚀🌊
+  Tüm <b>TEKNOFEST & Roketsan Su Altı Roketi</b> Takımlarına Başarılar Dileriz! 🚀🌊
 </div>
