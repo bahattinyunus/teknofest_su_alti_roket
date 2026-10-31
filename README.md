@@ -338,7 +338,7 @@ teknofest_su_alti_roket/
 │   ├── specs/                   # Yarışma şartnameleri (Roketsan V1.2)
 │   └── reports/                 # OTR, KTR ve Final tasarım rapor şablonları
 ├── firmware/                    # STM32F407VG + FreeRTOS + FOTA Üretim Kodları
-│   ├── include/                 # Header dosyaları (ESKF, PID, Watchdog, Sürücüler)
+│   ├── include/                 # Header dosyaları (ESKF, Control Allocation, PID, Sürücüler)
 │   ├── src/                     # C/C++ kaynak kodları (Gatekeeper, Görev Yöneticisi)
 │   ├── esp32_s3_firmware/       # ESP32-S3 FOTA Wi-Fi Server & PSRAM Blackbox
 │   └── CMakeLists.txt           # Modüler derleme mimarisi
@@ -346,14 +346,20 @@ teknofest_su_alti_roket/
 │   ├── pinout.md                # STM32F407 & ESP32-S3 referans pin haritası
 │   ├── schematics/              # Devre şemaları
 │   └── pcb/                     # Kart yerleşim ve üretim dosyaları
+├── analysis/                    # Mühendislik Analiz ve Hesaplama Araçları
+│   ├── propulsion/              # İtki-sürüklenme eşleşmesi ve Li-Po enerji bütçesi
+│   ├── structural/              # Basınç gövdesi gerilme ve elastik burkulma analizi
+│   └── cfd/                     # Kontrol kanatçığı kaldırma/sürüklenme poları & servo torku
+├── scripts/                     # Geliştirici ve Saha Operasyon Betikleri
+│   ├── build_firmware.py        # Çapraz platform CubeIDE/Ninja otomatik derleyici
+│   └── flash_fota.py            # Wi-Fi üzerinden kablosuz FOTA ve kara kutu indirme aracı
 ├── sim/
 │   └── mission_simulator.py     # Görev 1 & Görev 2 hidrodinamik simülatörü
 ├── src/
 │   ├── navigation/              # Python prototip algoritmaları
 │   └── gcs/                     # Yer Kontrol İstasyonu ve Blackbox log parser
-├── analysis/                    # CFD, itki ve yapısal analiz klasörleri
 ├── design/                      # CAD modelleri ve teknik çizimler
-└── tests/                       # ESKF, Blackbox ve FSM birim testleri (100% Pass)
+└── tests/                       # 18 adet birim testi (ESKF, FSM, Dinamik, Analiz) (100% Pass)
 ```
 
 ---
@@ -369,14 +375,23 @@ teknofest_su_alti_roket/
 
 ---
 
-## 💻 Simülasyon ve Testleri Çalıştırma
+## 💻 Simülasyon, Analiz ve Testleri Çalıştırma
 
 ```bash
-# Birim testleri koşturma (ESKF, FSM, Blackbox)
+# Tüm birim testleri koşturma (18 test, 100% Pass)
 python -m unittest discover tests
 
-# Hidrodinamik görev simülasyonunu çalıştırma
+# Hidrodinamik görev simülasyonunu çalıştırma (Görev 1 ve Görev 2)
 python sim/mission_simulator.py
+
+# İtki ve sürüklenme analizi
+python analysis/propulsion/thrust_drag_matching.py
+
+# Basınç gövdesi et kalınlığı ve burkulma analizi
+python analysis/structural/pressure_hull_thickness.py
+
+# Kontrol kanatçığı hidrodinamik poları ve servo torku
+python analysis/cfd/fin_lift_drag_polar.py
 ```
 
 ---
