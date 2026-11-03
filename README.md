@@ -8,6 +8,7 @@
   ### *Advanced Autonomous Underwater Rocket Framework for All Teams*
   
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+  [![CI Pipeline](https://github.com/bahattinyunus/teknofest_su_alti_roket/actions/workflows/ci.yml/badge.svg)](https://github.com/bahattinyunus/teknofest_su_alti_roket/actions/workflows/ci.yml)
   [![Platform: STM32F407](https://img.shields.io/badge/MCU-STM32F407VG%20%28ARM%20Cortex--M4F%29-007ACC?style=flat-square&logo=stmicroelectronics)](electronics/pinout.md)
   [![RTOS: FreeRTOS](https://img.shields.io/badge/RTOS-FreeRTOS%20%2B%20DMA-00A98F?style=flat-square)](docs/ENGINEERING_ANATOMY.md)
   [![FOTA: ESP32-S3](https://img.shields.io/badge/FOTA-ESP32--S3%20%28Web%20%26%20Blackbox%29-E94E32?style=flat-square)](docs/ENGINEERING_ANATOMY.md#5-kablosuz-güncelleme-mimarisi-esp32-s3-ile-fota-ve-kara-kutu-blackbox)
@@ -329,10 +330,44 @@ ninja -C build
 
 ---
 
+## 🖥️ Yer Kontrol İstasyonu (GCS) ve Telemetri Dashboard'u
+
+Takımların havuz ve deniz testlerinde aracı gerçek zamanlı izleyebilmesi veya görev sonrası kara kutu (Blackbox) loglarını oynatabilmesi için sıfır harici bağımlılıkla çalışan havacılık standardında bir Web GCS paneli geliştirilmiştir:
+
+* **Yapay Ufuk Göstergesi (ADI):** Pitch ve Roll yönelimini anlık $50\text{ Hz}$ hızla görselleştiren HTML5 Canvas göstergesi.
+* **Manyetik Pusula & Derinlik:** Seyir yönelimi (Heading) ve milimetrik derinlik sütunu.
+* **X-Rudder Aktüatör İzleyici:** 4 kanatçığın sapma açıları ($\delta_1, \delta_2, \delta_3, \delta_4$) ve PWM mikrosaniye sinyalleri.
+* **Safe-to-Arm Emniyet Kilidi:** Basınç ve yönelim çift koşulu sağlandığında yeşile dönen görsel ateşleme kilidi göstergesi.
+
+```bash
+# Web tabanlı GCS Dashboard'unu başlatma (http://localhost:8080)
+python src/gcs/dashboard.py
+```
+
+---
+
+## 🌊 6-DoF Doğrusal Olmayan Hidrodinamik Simülasyon
+
+Naval mimaride uluslararası standart olan **Fossen (2011)** su altı hareket denklemleri temel alınarak 6 serbestlik dereceli (Surge, Sway, Heave, Roll, Pitch, Yaw) simülasyon ortamı kurgulanmıştır:
+
+$$\mathbf{M}_{total} \dot{\mathbf{\nu}} + \mathbf{C}(\mathbf{\nu})\mathbf{\nu} + \mathbf{D}(\mathbf{\nu})\mathbf{\nu} + \mathbf{g}(\mathbf{\eta}) = \mathbf{\tau}$$
+
+* **İlave Kütle ($\mathbf{M}_A$):** Deplasman suyunun atalet etkileri ($X_{\dot{u}}, Y_{\dot{v}}, Z_{\dot{w}}, K_{\dot{p}}, M_{\dot{q}}, N_{\dot{r}}$).
+* **Hidrostatik Restorasyon:** Ağırlık ($W$) ile Sephiye ($B$) merkezleri arasındaki dikey stabilite ($z_g > z_b$).
+* **Kuple X-Rudder Dinamiği:** İleri hız ($u$) dinamik basıncına bağlı olarak 4 kanatçığın ürettiği Pitch, Yaw ve Roll momentleri.
+
+```bash
+python sim/six_dof_dynamics.py
+```
+
+---
+
 ## 📂 Proje Dizin Yapısı
 
 ```text
 teknofest_su_alti_roket/
+├── .github/
+│   └── workflows/ci.yml         # GitHub Actions otomatik test ve CI/CD hattı
 ├── docs/
 │   ├── ENGINEERING_ANATOMY.md   # Şampiyon Roketin Mühendislik Anatomisi (Detaylı Vaka Raporu)
 │   ├── specs/                   # Yarışma şartnameleri (Roketsan V1.2)
@@ -343,9 +378,13 @@ teknofest_su_alti_roket/
 │   ├── esp32_s3_firmware/       # ESP32-S3 FOTA Wi-Fi Server & PSRAM Blackbox
 │   └── CMakeLists.txt           # Modüler derleme mimarisi
 ├── electronics/
+│   ├── BOM.md                   # Kapsamlı Aviyonik Malzeme Listesi (Fiyat, Kılıf, Parça Kodları)
 │   ├── pinout.md                # STM32F407 & ESP32-S3 referans pin haritası
-│   ├── schematics/              # Devre şemaları
-│   └── pcb/                     # Kart yerleşim ve üretim dosyaları
+│   ├── schematics/              # Güç dağıtımı, opto-izolasyon ve filtre devreleri
+│   └── pcb/                     # 4 katmanlı marin PCB tasarım ve üretim kılavuzu
+├── design/
+│   ├── MECHANICAL_DESIGN_GUIDE.md # Myring torpido geometrisi ve O-Ring conta kanalı hesabı
+│   └── HATCH_AND_ROCKET_POD.md    # Kuru roket bölmesi, mekanik kapak ve ateşleme güvenliği
 ├── analysis/                    # Mühendislik Analiz ve Hesaplama Araçları
 │   ├── propulsion/              # İtki-sürüklenme eşleşmesi ve Li-Po enerji bütçesi
 │   ├── structural/              # Basınç gövdesi gerilme ve elastik burkulma analizi
@@ -354,12 +393,12 @@ teknofest_su_alti_roket/
 │   ├── build_firmware.py        # Çapraz platform CubeIDE/Ninja otomatik derleyici
 │   └── flash_fota.py            # Wi-Fi üzerinden kablosuz FOTA ve kara kutu indirme aracı
 ├── sim/
-│   └── mission_simulator.py     # Görev 1 & Görev 2 hidrodinamik simülatörü
+│   ├── mission_simulator.py     # Görev 1 & Görev 2 hidrodinamik görev simülatörü
+│   └── six_dof_dynamics.py      # 6-DoF Fossen doğrusal olmayan dinamik simülasyonu
 ├── src/
-│   ├── navigation/              # Python prototip algoritmaları
-│   └── gcs/                     # Yer Kontrol İstasyonu ve Blackbox log parser
-├── design/                      # CAD modelleri ve teknik çizimler
-└── tests/                       # 18 adet birim testi (ESKF, FSM, Dinamik, Analiz) (100% Pass)
+│   ├── navigation/              # ESKF, PID ve Akustik Pinger Takibi (Acoustic Homing)
+│   └── gcs/                     # Web GCS Dashboard ve Blackbox log parser
+└── tests/                       # 25 adet birim testi (ESKF, 6-DoF, Akustik, Analiz) (100% Pass)
 ```
 
 ---
@@ -378,11 +417,20 @@ teknofest_su_alti_roket/
 ## 💻 Simülasyon, Analiz ve Testleri Çalıştırma
 
 ```bash
-# Tüm birim testleri koşturma (18 test, 100% Pass)
+# Tüm birim testleri koşturma (25 test, 100% Pass)
 python -m unittest discover tests
+
+# Web tabanlı GCS Telemetri Paneli (http://localhost:8080)
+python src/gcs/dashboard.py
+
+# 6-DoF Tam Hidrodinamik Simülasyon
+python sim/six_dof_dynamics.py
 
 # Hidrodinamik görev simülasyonunu çalıştırma (Görev 1 ve Görev 2)
 python sim/mission_simulator.py
+
+# Akustik Pinger Yönelim Tespiti (TDoA)
+python src/navigation/acoustic_homing.py
 
 # İtki ve sürüklenme analizi
 python analysis/propulsion/thrust_drag_matching.py
